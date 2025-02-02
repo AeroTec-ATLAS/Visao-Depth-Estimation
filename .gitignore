@@ -1,0 +1,37 @@
+# Ignore macOS system files
+.DS_Store
+
+# Ignore Python bytecode files
+__pycache__/
+*.py[cod]
+
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignore virtual environment directories
+venv/
+env/
+ENV/
+.venv/
+.ENV/
+
+# Ignore log files
+*.log
+
+# Ignore temporary files
+*.tmp
+*.temp
+
+# Ignore compiled files
+*.o
+*.so
+*.a
+*.out
+
+# Ignore large files tracked by Git LFS
+*.pth
+
+# Ignore other files
+.idea/
+.vscode/
+*.swp
