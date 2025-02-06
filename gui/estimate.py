@@ -60,6 +60,7 @@ def overlay_depth_values(image, depth, person_boxes):
         text = f"{depth_value:.1f}m"
         cv2.putText(image, text, (x1, y1 - 10), font, font_scale, color, thickness, cv2.LINE_AA)
         cv2.rectangle(image, (x1, y1), (x2, y2), (255, 0, 255), 2)
+        cv2.circle(image, (center_x, center_y), 5, (0, 255, 0), -1)
 
     return image
 
@@ -92,9 +93,9 @@ def process_frame(frame):
     
     person_boxes = []
     for r in results:
-        boxes = r.boxes.xyxy.cpu().numpy()
-        classes = r.boxes.cls.cpu().numpy()
-        confidences = r.boxes.conf.cpu().numpy()
+        boxes = r.boxes.xyxy.cpu()
+        classes = r.boxes.cls.cpu()
+        confidences = r.boxes.conf.cpu()
 
         for box, cls, conf in zip(boxes, classes, confidences):
             if r.names[int(cls)] == "person" and conf > 0.6:
@@ -113,6 +114,8 @@ def process_frame(frame):
 
 # OpenCV video capture
 cap = cv2.VideoCapture(0)  # Use 0 for the default webcam
+cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
+cap.set(cv2.CAP_PROP_FPS, 30)
 
 while True:
     ret, frame = cap.read() # ret: boleano que indica se o frame foi capturado com sucesso
